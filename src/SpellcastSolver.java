@@ -1,13 +1,11 @@
 package solver;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashSet;
 import java.util.TreeSet;
 import java.util.Scanner;
+import java.awt.GraphicsEnvironment;
+import java.net.URISyntaxException;
 
 public class SpellcastSolver{
 	
@@ -72,7 +70,8 @@ public class SpellcastSolver{
 	}
 
 	//              MAIN
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
+		//Open terminal
 		//Handle input of spellcast grid
 		Scanner userInput = new Scanner(System.in);  // Create a Scanner object to listen for input
 		System.out.println("Enter the Spellcast Grid as a string of 25 letters, left to right, top to bottom");
