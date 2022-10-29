@@ -6,7 +6,8 @@ Spellcast is a game that is part of the Discord platform's Activities section. E
 
 
 EXAMPLE RUN:
-![image](https://user-images.githubusercontent.com/44306495/198845009-2d691dc0-38a9-4e5e-a0ac-961eff22b2eb.png)
+![image](https://user-images.githubusercontent.com/44306495/198855515-21e4430f-d630-4a1a-ae94-9263e57929b1.png)
+![image](https://user-images.githubusercontent.com/44306495/198855545-d46e96b9-d3c1-46fa-aeb0-8dc7ad2c3671.png)
+![image](https://user-images.githubusercontent.com/44306495/198855558-7e25a271-2819-4702-af1f-bc0e00a4b043.png)
 
-![image](https://user-images.githubusercontent.com/44306495/198855448-a6266ca5-96ba-4760-911f-0434f60a9923.png)
 
