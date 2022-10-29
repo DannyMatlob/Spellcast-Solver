@@ -8,4 +8,5 @@ Spellcast is a game that is part of the Discord platform's Activities section. E
 EXAMPLE RUN:
 ![image](https://user-images.githubusercontent.com/44306495/198845009-2d691dc0-38a9-4e5e-a0ac-961eff22b2eb.png)
 
-Start up the program and type in the board as a 25 letter string. This board would be: "rmoebrspgaetlhnfgtidobkvi"
+![image](https://user-images.githubusercontent.com/44306495/198855448-a6266ca5-96ba-4760-911f-0434f60a9923.png)
+
