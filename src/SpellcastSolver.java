@@ -7,10 +7,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.TreeSet;
-
+import java.util.Scanner;
 
 public class SpellcastSolver{
 	
+	//Initialization
 	public final int minimum = 5;
 	public final int maximum = 10;
 	public SpellcastGrid grid;
@@ -18,9 +19,7 @@ public class SpellcastSolver{
 		this.grid = grid;
 	}
 	
-	//
 	//Recursive Word Search
-	//
 	public HashSet<String> combos = new HashSet<String>();
 	public int recurses = 0;
 	
@@ -40,14 +39,10 @@ public class SpellcastSolver{
 		}
 	}
 	
-	//
 	//Word Verification
-	//
 	public HashSet<String> createDictionary () {
 		HashSet<String> words = new HashSet<>();
-		
 		File dictionary = new File("src/data", "dictionary.txt");
-		
 		FileReader fr = null;  //Individual Characters
 		try {
 			fr = new FileReader(dictionary);
@@ -68,7 +63,6 @@ public class SpellcastSolver{
 		}
 		return words;
 	}
-	
 	public TreeSet<String> matchWords (HashSet<String> dictionary) {
 		TreeSet<String> correctWords = new TreeSet<>(new lengthThenLexicoComparator());
 		for (String s : combos) {
@@ -76,77 +70,99 @@ public class SpellcastSolver{
 		}
 		return correctWords;
 	}
-	
-	/* word verify method
-	public boolean verifyWord (String word) {
-		boolean isWord = false;
-		TreeSet<Node> startLetters = grid.findNodes(word.charAt(0));
-		for (Node n : startLetters) {
-			isWord = isWord || isWordRecurse(word,"",n,0, new HashSet<Node>());
+
+	//              MAIN
+	public static void main(String[] args) {
+		//Handle input of spellcast grid
+		Scanner userInput = new Scanner(System.in);  // Create a Scanner object to listen for input
+		System.out.println("Enter the Spellcast Grid as a string of 25 letters, left to right, top to bottom");
+		String gridString = userInput.nextLine();
+		while (gridString.length()!=25) {
+			System.out.println("Incorrect format");
+			System.out.println("Enter the Spellcast Grid as a string of 25 letters, left to right, top to bottom");
+			gridString = userInput.nextLine();
 		}
-		return isWord;
-	}
-	
-	public boolean isWordRecurse(String word, String current, Node n, int index, HashSet<Node> history) {
-		if (current.equals(word)) return true;
 		
-		for (Node connection : n.connections) {
-			if (connection!=null && connection.data==word.charAt(index)) {
-				history.add(connection);
-				current+=connection.data;
-				return isWordRecurse(word, current, connection, index+1, history);
+		//Prepare to handle min and max length
+		String input = "";
+		int minLength = 5;
+		int maxLength = 9;
+		
+		int length = minLength;
+		//Handle input of minimum word length
+		System.out.println("Enter the minimum word length to search, between 1 and 10");
+		while (true) {
+			input = userInput.nextLine();
+			if (input.equals("")) break;
+			if (!input.matches("[0-9.]+")) {
+				System.out.println("Invalid input, please only input numbers between 1 and 10");
+			} else {
+				length = Integer.parseInt(input);
+				if (length < 1 || length > 10) {
+					System.out.println("Invalid input, please only input numbers between 1 and 10");
+				} else {
+					break;
+				}
 			}
 		}
-		return false;
-	}
-	*/
-	//
-	//
-	//
-	//              MAIN
-	//
-	//
-	//
-	public static void main(String[] args) {
-		/////////////////////////
-		//ENTER THE GRID HERE VV
-		/////////////////////////
-		String gridString = "gidaunsxwieilipsueeertara";
-		/////////////////////////
-		//ENTER THE GRID HERE ^^
-		/////////////////////////
+		minLength = length;
 		
+		//Handle input of maximum word length
+		length = maxLength;
+		System.out.println("Enter the maximum word length to search, between 1 and 10");
+		while (true) {
+			input = userInput.nextLine();
+			if (input.equals("")) break;
+			if (!input.matches("[0-9.]+")) {
+				System.out.println("Invalid input, please only input numbers between 1 and 10");
+			} else {
+				length = Integer.parseInt(input);
+				if (length < 1 || length > 10) {
+					System.out.println("Invalid input, please only input numbers between 1 and 10");
+				} else {
+					break;
+				}
+			}
+		}
+		maxLength = length;
+		userInput.close();
+		
+		//Print summary of inputs
+		System.out.println(gridString.length());
+		System.out.println("Minlength is: "+minLength);
+		System.out.println("Maxlength is: "+maxLength);
+		
+		//Convert string to 5x5 2D char array
 		char[][] charGrid = new char[5][5];
 		int j = -1;
 		for (int i = 0; i<25; i++) {
 			if (i%5==0) j++;
 			charGrid[j][i%5]=gridString.charAt(i);
 		}
-		System.out.println(gridString.length());
+		
+		//Create a new SpellcastGrid object and print it
 		SpellcastGrid grid = new SpellcastGrid(charGrid);
-		/*SpellcastGrid grid = new SpellcastGrid(new char[][] 
-				{
-					{'l','l','e','e','o'},
-					{'v','i','a','z','i'},
-					{'e','t','v','o','a'},
-					{'s','u','u','f','n'},
-					{'g','o','o','i','n'}
-				});
-		*/
 		System.out.println(grid.toString());
+		
+		//Create a new SpellcastSolver object with this grid
 		SpellcastSolver solver = new SpellcastSolver(grid);
+		
 		//Slow brute force solution
-		for (Node[] n1 : grid.getNodeGrid()) {
-			for (Node n : n1) {				
-				//ALTER PARAMETERS TO FIND WORDS HERE
-				//								  		    min max  word length
-				solver.findWords(n, new HashSet<Node>(), "", 3, 6);
+		for (Node[] n1 : grid.getNodeGrid()) {//Loop through each row of nodes
+			for (Node n : n1) {//Loop through each node
+				//Starting at this node, find all possible combinations of of letters between minimum and maximum word length
+				solver.findWords(n, new HashSet<Node>(), "", minLength, maxLength);
 			}
 		}
 		
+		//Finished finding all word combinations, print recurse number
 		System.out.println("Recurses: " + solver.recurses);
+		
+		//Separate gibberish combinations from real words using dictionary
 		HashSet<String> dictionary = solver.createDictionary();
 		TreeSet<String> finalWords = solver.matchWords(dictionary);
+		
+		//Print results
 		System.out.println("Total words found: " + finalWords.size());
 		System.out.println(finalWords);
 	}
