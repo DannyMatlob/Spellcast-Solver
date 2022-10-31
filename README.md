@@ -10,4 +10,5 @@ EXAMPLE RUN:
 ![image](https://user-images.githubusercontent.com/44306495/198855545-d46e96b9-d3c1-46fa-aeb0-8dc7ad2c3671.png)
 ![image](https://user-images.githubusercontent.com/44306495/198855558-7e25a271-2819-4702-af1f-bc0e00a4b043.png)
 
-
+Since SpellCast is not available to all users, you can try the program out on Boggle.
+https://www.puzzle-words.com/boggle-5x5-extreme/
