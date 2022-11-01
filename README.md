@@ -4,6 +4,7 @@ A program to return the longest possible words in a given Spellcast board
 
 Spellcast is a game that is part of the Discord platform's Activities section. Essentially, it is a multiplayer word matching game where you get points depending on the length of the word you match on the board. This program searches the board in order to compile a list of words, up to 9 letters in length.
 
+Simply download "Spellcast Solver.jar" and run it to start the program. If you get a JNI error, you probably have to update java to a newer version
 
 EXAMPLE RUN:
 ![image](https://user-images.githubusercontent.com/44306495/198855515-21e4430f-d630-4a1a-ae94-9263e57929b1.png)
